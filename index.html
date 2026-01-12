@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <!-- ÁREA CENTRAL -->
+        <!-- ÁREA CENTRAL (CONTAINER DE TELAS) -->
         <div id="screen-container" class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
             
             <!-- TELA 1: INICIAL -->
@@ -103,9 +103,9 @@
             <div id="view-onboarding" class="hidden p-12 max-w-3xl mx-auto">
                 <h2 class="text-3xl font-bold text-white mb-6">Bem-vindo à TechNova Soluções Digitais</h2>
                 <div class="space-y-4 text-slate-300 leading-relaxed mb-8">
-                    <p>Você acaba de assumir como <strong class="text-cyan-400">Gerente de Projetos Senior</strong>.</p>
-                    <p>Sua missão é liderar o desenvolvimento do <strong class="text-white">Aplicativo Phoenix</strong>: uma plataforma disruptiva de logística urbana que utiliza inteligência de dados para otimizar rotas de entrega.</p>
-                    <p>A diretoria da TechNova quer lançar o produto em tempo recorde para garantir uma fatia do mercado. Você terá que gerenciar as expectativas dos diretores (stakeholders), a saúde técnica do código e o moral da sua equipe de especialistas.</p>
+                    <p>Você acaba de assumir o cargo de <strong class="text-cyan-400">Gerente de Projetos Senior</strong>.</p>
+                    <p>Sua missão é liderar o desenvolvimento do <strong class="text-white">App Phoenix</strong>: uma plataforma disruptiva de logística urbana que utiliza inteligência de dados para otimizar rotas de entrega.</p>
+                    <p>A diretoria da TechNova pretende lançar o produto em tempo recorde para garantir uma fatia de mercado. Você terá de gerenciar as expectativas dos diretores (stakeholders), a saúde técnica do código e o moral da sua equipe de especialistas.</p>
                     <p class="bg-slate-800/50 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
                         <strong>Dica:</strong> No PMBOK 7, seu foco deve ser a <strong>Entrega de Valor</strong>. Às vezes, seguir o plano original não é a melhor forma de gerar valor para o cliente.
                     </p>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="flex gap-6 items-start">
-                        <img id="npc-avatar" src="" class="w-20 h-20 rounded-2xl border-2 border-slate-700 object-cover" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=User&background=64748b&color=fff'">
+                        <img id="npc-avatar" src="" class="w-20 h-20 rounded-2xl border-2 border-slate-700 object-cover" alt="Avatar de Personagem" onerror="this.src='https://ui-avatars.com/api/?name=NPC&background=64748b&color=fff'">
                         <div>
                             <h2 id="event-title" class="text-2xl font-bold mb-2 text-white">Título do Evento</h2>
                             <p id="event-desc" class="text-slate-400 leading-relaxed italic">Descrição do desafio.</p>
@@ -138,7 +138,7 @@
                 
                 <div class="p-8 bg-slate-900/50">
                     <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Gerado via JS -->
+                        <!-- Botões gerados via JS -->
                     </div>
                 </div>
             </div>
@@ -147,16 +147,22 @@
             <div id="view-feedback" class="hidden p-8">
                 <div class="text-center mb-8">
                     <h2 class="text-3xl font-bold text-white mb-2">Consequências</h2>
-                    <p id="feedback-desc" class="text-slate-400">Resumo do resultado.</p>
+                    <p id="feedback-desc" class="text-slate-400">Resumo do resultado da escolha.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6">
-                        <h3 class="text-emerald-400 font-bold uppercase text-xs tracking-widest mb-4">Impactos Positivos</h3>
+                        <h3 class="text-emerald-400 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            Ganhos
+                        </h3>
                         <ul id="list-gains" class="space-y-2"></ul>
                     </div>
                     <div class="bg-red-500/5 border border-red-500/20 rounded-2xl p-6">
-                        <h3 class="text-red-400 font-bold uppercase text-xs tracking-widest mb-4">Impactos Negativos</h3>
+                        <h3 class="text-red-400 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            Perdas
+                        </h3>
                         <ul id="list-losses" class="space-y-2"></ul>
                     </div>
                 </div>
@@ -172,16 +178,16 @@
                 </div>
 
                 <div class="flex justify-center">
-                    <button onclick="Game.nextEvent()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-12 rounded-xl">Continuar</button>
+                    <button onclick="Game.nextEvent()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-12 rounded-xl transition-all">Continuar Jornada</button>
                 </div>
             </div>
 
             <!-- TELA 5: FINAL -->
             <div id="view-end" class="hidden p-12 text-center">
-                <h2 id="end-title" class="text-4xl font-bold mb-4">Fim de Projeto</h2>
+                <h2 id="end-title" class="text-4xl font-bold mb-4">Conclusão do Projeto</h2>
                 <p id="end-desc" class="text-slate-400 mb-8 text-lg"></p>
                 <div id="final-stats" class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8"></div>
-                <button onclick="location.reload()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-10 rounded-xl">Recomeçar</button>
+                <button onclick="location.reload()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-10 rounded-xl">Recomeçar Simulação</button>
             </div>
 
         </div>
@@ -198,50 +204,50 @@
                 eventIndex: 0
             },
 
-            // Mapa de Avatares (Links Diretos do Google Drive)
+            // Mapa de Avatares Atualizado com Links Freepik
             avatars: {
-                leona: "https://drive.google.com/uc?id=1VIXtkyjkYW2pD4j14KR47ZDKAODc8GjO",
-                david: "https://drive.google.com/uc?id=1_NnWP-27-6SrtUAQlEgIjtEe_LDIP_Iz",
-                bia: "https://drive.google.com/uc?id=1jBJLTLxX0Op-_HV6zOBOjCQNnY6oQN1O",
-                carlos: "https://drive.google.com/uc?id=1xnbERExiSXenwFwGPoWXUXizPnKO4VnZ"
+                leona: "https://img.freepik.com/psd-gratuitas/renderizacao-3d-do-estilo-de-cabelo-para-o-design-do-avatar_23-2151869157.jpg",
+                david: "https://img.freepik.com/psd-gratuitas/renderizacao-3d-de-avatar_23-2150833546.jpg",
+                bia: "https://img.freepik.com/psd-gratuitas/renderizacao-3d-do-estilo-de-cabelo-para-o-design-do-avatar_23-2151869149.jpg",
+                carlos: "https://img.freepik.com/psd-gratuitas/renderizacao-3d-de-avatar_23-2150833548.jpg"
             },
 
             db: [
                 {
                     id: 1, week: 1, char: "david",
-                    title: "Mudança de Escopo",
-                    desc: "David, o Diretor Comercial, quer incluir recursos de IA agora. 'O mercado não vai esperar!', afirma ele.",
+                    title: "Alteração de Escopo",
+                    desc: "David, o Diretor Comercial, quer incluir funcionalidades de IA agora. 'O mercado não vai esperar!', afirma ele.",
                     options: [
-                        { id: 'A', type: "Agressiva", text: "Aceitar Imediatamente", expl: "Instruir a equipe a começar o desenvolvimento agora, ignorando o plano original.", impact: { budget: -15, schedule: -15, quality: -5, morale: 5 }, feedback: "A diretoria está feliz, mas a pressão sobre a equipe começou cedo e o custo subiu." },
-                        { id: 'B', type: "Conservadora", text: "Negar e Seguir o Plano", expl: "Manter o escopo fechado e focar apenas no que foi acordado no início do projeto.", impact: { budget: 0, schedule: 0, quality: 5, morale: -5 }, feedback: "O cronograma está seguro, mas o diretor se sente desapontado com a falta de agilidade." },
-                        { id: 'C', type: "Negligente", text: "Adiar a Decisão", expl: "Não dar uma resposta clara, esperando que o assunto seja esquecido nas próximas semanas.", impact: { budget: 0, schedule: -5, quality: -10, morale: -10 }, feedback: "A indecisão gerou fofocas e falta de rumo para os desenvolvedores." },
+                        { id: 'A', type: "Agressiva", text: "Aceitar Imediatamente", expl: "Instruir a equipe a começar o desenvolvimento agora, ignorando o plano original.", impact: { budget: -15, schedule: -15, quality: -5, morale: 5 }, feedback: "A diretoria está satisfeita, mas a pressão sobre a equipe começou cedo e os custos dispararam." },
+                        { id: 'B', type: "Conservadora", text: "Negar e Seguir o Plano", expl: "Manter o escopo fechado e focar apenas no que foi acordado no início do projeto.", impact: { budget: 0, schedule: 0, quality: 5, morale: -5 }, feedback: "O cronograma está seguro, mas o diretor sente-se desapontado com a falta de agilidade da empresa." },
+                        { id: 'C', type: "Negligente", text: "Adiar a Decisão", expl: "Não dar uma resposta clara, esperando que o assunto seja esquecido nas próximas semanas.", impact: { budget: 0, schedule: -5, quality: -10, morale: -10 }, feedback: "A indecisão gerou rumores e falta de rumo para os desenvolvedores." },
                         { id: 'D', type: "Equilibrada", text: "Criar um Protótipo (POC)", expl: "Desenvolver uma Prova de Conceito (POC) simplificada para validar a ideia sem comprometer todo o projeto.", impact: { budget: -5, schedule: -5, quality: 0, morale: 5 }, feedback: "Você validou os riscos da IA e acalmou o diretor com uma entrega parcial de valor." }
                     ],
-                    pmbokTip: "O Engajamento dos Stakeholders requer equilibrar desejos competitivos com a realidade dos recursos."
+                    pmbokTip: "O Engajamento dos Stakeholders requer equilibrar desejos competitivos com a realidade dos recursos disponíveis."
                 },
                 {
                     id: 2, week: 3, char: "leona",
                     title: "Dívida Técnica",
-                    desc: "Leona, a Líder Técnica, avisa: 'O código está virando uma bagunça. Precisamos parar para organizar a casa (Refatorar).'",
+                    desc: "Leona, a Líder Técnica, avisa: 'O código está se tornando caótico. Precisamos parar para organizar a estrutura (Refatorar).'",
                     options: [
-                        { id: 'A', type: "Agressiva", text: "Ignorar e Continuar", expl: "Manter o ritmo de novas funcionalidades, deixando a limpeza do código para o futuro.", impact: { budget: 0, schedule: 5, quality: -20, morale: -15 }, feedback: "As entregas continuam, mas a equipe está frustrada e o sistema ficou muito instável." },
+                        { id: 'A', type: "Agressiva", text: "Ignorar e Continuar", expl: "Manter o ritmo de novas funcionalidades, deixando a limpeza do código para o futuro.", impact: { budget: 0, schedule: 5, quality: -20, morale: -15 }, feedback: "As entregas continuam, mas a equipe está frustrada e o sistema tornou-se muito instável." },
                         { id: 'B', type: "Conservadora", text: "Refatoração Completa", expl: "Parar todo o desenvolvimento por uma semana para reorganizar o código interno (Refatorar).", impact: { budget: -10, schedule: -15, quality: 20, morale: 10 }, feedback: "O sistema agora é robusto e escalável, mas o atraso no cronograma é preocupante." },
-                        { id: 'C', type: "Negligente", text: "Exigir Horas Extras", expl: "Pedir que a equipe organize o código no tempo livre para não atrasar as entregas.", impact: { budget: -15, schedule: 0, quality: -5, morale: -30 }, feedback: "A equipe está sofrendo de exaustão (Burnout). A qualidade não melhorou e o clima está péssimo." },
-                        { id: 'D', type: "Equilibrada", text: "Refatoração por Partes", expl: "Dedicar 20% do tempo de cada dia para melhorias contínuas no código enquanto entrega as tarefas.", impact: { budget: -5, schedule: -5, quality: 10, morale: 5 }, feedback: "Melhoria gradual sem impacto catastrófico no prazo. A equipe sente que o trabalho é sustentável." }
+                        { id: 'C', type: "Negligente", text: "Exigir Horas Extras", expl: "Pedir que a equipe organize o código no tempo livre para não atrasar as entregas comerciais.", impact: { budget: -15, schedule: 0, quality: -5, morale: -30 }, feedback: "A equipe está sofrendo de exaustão extrema (Burnout). A qualidade não melhorou e o ambiente está ruim." },
+                        { id: 'D', type: "Equilibrada", text: "Refatoração por Partes", expl: "Dedicar 20% do tempo diário para melhorias contínuas no código enquanto entrega as tarefas.", impact: { budget: -5, schedule: -5, quality: 10, morale: 5 }, feedback: "Melhoria gradual sem impacto catastrófico no prazo. A equipe sente que o trabalho é sustentável." }
                     ],
-                    pmbokTip: "O Domínio da Entrega destaca que a qualidade robusta reduz o custo total de propriedade a longo prazo."
+                    pmbokTip: "O Princípio da Qualidade destaca que uma estrutura robusta reduz o custo total de manutenção a longo prazo."
                 },
                 {
                     id: 3, week: 5, char: "bia",
                     title: "Erro Crítico Encontrado",
-                    desc: "Bia (QA) detectou uma falha de segurança. Dados de teste estão aparecendo para usuários externos.",
+                    desc: "Bia (QA) detectou uma falha de segurança. Dados de teste estão visíveis para usuários externos.",
                     options: [
-                        { id: 'A', type: "Agressiva", text: "Correção Rápida (Hotfix)", expl: "Aplicar uma correção emergencial (Hotfix) direto no sistema sem passar por todos os testes.", impact: { budget: 0, schedule: 0, quality: -15, morale: -5 }, feedback: "A falha parou, mas a correção apressada quebrou outras partes do sistema." },
-                        { id: 'B', type: "Conservadora", text: "Retornar Versão (Rollback)", expl: "Retornar o sistema para a versão anterior estável (Rollback) e auditar o erro com calma.", impact: { budget: -5, schedule: -15, quality: 15, morale: 0 }, feedback: "Decisão segura que protegeu os dados, mas o cronograma sofreu um grande golpe." },
-                        { id: 'C', type: "Negligente", text: "Minimizar o Impacto", expl: "Dizer que o erro é pequeno e não requer ação imediata.", impact: { budget: -10, schedule: -5, quality: -20, morale: -15 }, feedback: "A falha vazou para o mercado e a reputação da empresa foi atingida severamente." },
-                        { id: 'D', type: "Equilibrada", text: "Força-Tarefa de Correção", expl: "Reunir os melhores especialistas para focar apenas nisso até que seja resolvido com testes rigorosos.", impact: { budget: -10, schedule: -10, quality: 10, morale: 5 }, feedback: "Problema resolvido com segurança. A equipe se sentiu unida diante da crise." }
+                        { id: 'A', type: "Agressiva", text: "Correção Rápida (Hotfix)", expl: "Aplicar uma correção emergencial (Hotfix) direta no sistema sem passar por todos os testes de regressão.", impact: { budget: 0, schedule: 0, quality: -15, morale: -5 }, feedback: "A falha parou, mas a correção apressada quebrou outras funcionalidades do sistema." },
+                        { id: 'B', type: "Conservadora", text: "Restaurar Versão (Rollback)", expl: "Restaurar o sistema na versão anterior estável (Rollback) e auditar o erro com rigor.", impact: { budget: -5, schedule: -15, quality: 15, morale: 0 }, feedback: "Decisão segura que protegeu os dados, mas o cronograma sofreu um impacto significativo." },
+                        { id: 'C', type: "Negligente", text: "Minimizar o Impacto", expl: "Informar que o erro é menor e não requer ação corretiva imediata.", impact: { budget: -10, schedule: -5, quality: -20, morale: -15 }, feedback: "A falha tornou-se pública e a reputação da TechNova foi gravemente atingida." },
+                        { id: 'D', type: "Equilibrada", text: "Task Force de Correção", expl: "Reunir especialistas para focar exclusivamente na resolução com testes rigorosos antes da publicação.", impact: { budget: -10, schedule: -10, quality: 10, morale: 5 }, feedback: "Problema resolvido com segurança. A equipe sentiu-se unida perante a crise." }
                     ],
-                    pmbokTip: "A gestão de Riscos e Incerteza exige respostas rápidas porém fundamentadas em integridade."
+                    pmbokTip: "A gestão de Riscos e Incerteza exige respostas rápidas fundamentadas na integridade e transparência."
                 }
             ],
 
@@ -334,10 +340,10 @@
                 const s = this.state, t = document.getElementById('end-title'), d = document.getElementById('end-desc'), st = document.getElementById('final-stats');
                 if(status === 'failure') {
                     t.textContent = "Projeto Cancelado"; t.className = "text-4xl font-bold mb-4 text-red-500";
-                    d.textContent = "Os recursos foram esgotados antes da entrega de valor.";
+                    d.textContent = "Os recursos foram esgotados antes da entrega de valor estratégico.";
                 } else {
-                    t.textContent = "Sucesso no Lançamento!"; t.className = "text-4xl font-bold mb-4 text-emerald-500";
-                    d.textContent = "O Aplicativo Phoenix chegou ao mercado! Sua gestão garantiu a viabilidade do produto.";
+                    t.textContent = "Lançamento de Sucesso!"; t.className = "text-4xl font-bold mb-4 text-emerald-500";
+                    d.textContent = "O App Phoenix chegou ao mercado! A sua liderança garantiu a viabilidade do produto no mercado.";
                 }
                 st.innerHTML = `<div class="glass-panel p-4 rounded-xl text-center"><span class="text-xs text-slate-500 uppercase">Qualidade Final</span><span class="text-2xl font-bold text-cyan-400">${s.quality}%</span></div><div class="glass-panel p-4 rounded-xl text-center"><span class="text-xs text-slate-500 uppercase">Moral Equipe</span><span class="text-2xl font-bold text-purple-400">${s.morale}%</span></div>`;
                 this.showView('end');
