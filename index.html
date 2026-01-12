@@ -21,10 +21,12 @@
         }
         .choice-card {
             transition: all 0.2s ease;
+            cursor: pointer;
         }
         .choice-card:hover {
             transform: scale(1.01);
             border-color: #22d3ee;
+            background: rgba(30, 41, 59, 0.9);
         }
         @keyframes pulse-border {
             0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
@@ -126,7 +128,7 @@
                         </div>
                     </div>
                     <div class="flex gap-6 items-start">
-                        <img id="npc-avatar" src="" class="w-20 h-20 rounded-2xl border-2 border-slate-700 object-cover" alt="Avatar">
+                        <img id="npc-avatar" src="" class="w-20 h-20 rounded-2xl border-2 border-slate-700 object-cover" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=User&background=64748b&color=fff'">
                         <div>
                             <h2 id="event-title" class="text-2xl font-bold mb-2 text-white">Título do Evento</h2>
                             <p id="event-desc" class="text-slate-400 leading-relaxed italic">Descrição do desafio.</p>
@@ -196,6 +198,14 @@
                 eventIndex: 0
             },
 
+            // Mapa de Avatares (Links Diretos do Google Drive)
+            avatars: {
+                leona: "https://drive.google.com/uc?id=1VIXtkyjkYW2pD4j14KR47ZDKAODc8GjO",
+                david: "https://drive.google.com/uc?id=1_NnWP-27-6SrtUAQlEgIjtEe_LDIP_Iz",
+                bia: "https://drive.google.com/uc?id=1jBJLTLxX0Op-_HV6zOBOjCQNnY6oQN1O",
+                carlos: "https://drive.google.com/uc?id=1xnbERExiSXenwFwGPoWXUXizPnKO4VnZ"
+            },
+
             db: [
                 {
                     id: 1, week: 1, char: "david",
@@ -261,7 +271,11 @@
                 document.getElementById('event-week').textContent = "SEMANA " + ev.week.toString().padStart(2, '0');
                 document.getElementById('event-title').textContent = ev.title;
                 document.getElementById('event-desc').textContent = ev.desc;
-                document.getElementById('npc-avatar').src = `https://i.pravatar.cc/150?u=${ev.char}`;
+                
+                // Aplicar Avatar do Mapa
+                const avatarImg = document.getElementById('npc-avatar');
+                avatarImg.src = this.avatars[ev.char];
+                
                 const grid = document.getElementById('options-grid');
                 grid.innerHTML = '';
                 ev.options.forEach(opt => {
