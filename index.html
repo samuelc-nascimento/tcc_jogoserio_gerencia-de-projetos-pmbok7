@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Phoenix v3.1 - Serious Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0f172a;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .progress-bar {
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .choice-card {
+            transition: all 0.2s ease;
+        }
+        .choice-card:hover {
+            transform: scale(1.01);
+            border-color: #22d3ee;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 211, 238, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+        }
+        .committee-alert {
+            animation: pulse-border 2s infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen flex items-center justify-center p-4">
+
+    <div id="game-app" class="w-full max-w-5xl">
+        
+        <!-- DASHBOARD SUPERIOR -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Orçamento</span>
+                    <span id="val-budget" class="text-lg font-bold text-emerald-400">100%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="bar-budget" class="progress-bar bg-emerald-500 h-full" style="width: 100%"></div>
+                </div>
+            </div>
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Cronograma</span>
+                    <span id="val-schedule" class="text-lg font-bold text-amber-400">100%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="bar-schedule" class="progress-bar bg-amber-500 h-full" style="width: 100%"></div>
+                </div>
+            </div>
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Qualidade</span>
+                    <span id="val-quality" class="text-lg font-bold text-cyan-400">80%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="bar-quality" class="progress-bar bg-cyan-500 h-full" style="width: 80%"></div>
+                </div>
+            </div>
+            <div class="glass-panel p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Moral</span>
+                    <span id="val-morale" class="text-lg font-bold text-purple-400">80%</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div id="bar-morale" class="progress-bar bg-purple-500 h-full" style="width: 80%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÁREA CENTRAL -->
+        <div id="screen-container" class="glass-panel rounded-2xl overflow-hidden shadow-2xl">
+            
+            <!-- TELA 1: INICIAL -->
+            <div id="view-start" class="p-12 text-center">
+                <div class="inline-block p-3 rounded-2xl bg-cyan-500/20 mb-6">
+                    <svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Project Phoenix v3.1</h1>
+                <p class="text-lg text-slate-400 mb-8 max-w-2xl mx-auto">
+                    Simulador Educacional de Gerenciamento de Projetos
+                </p>
+                <button onclick="Game.goToOnboarding()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-10 rounded-xl transition-all">
+                    Iniciar Simulação
+                </button>
+            </div>
+
+            <!-- TELA 2: ONBOARDING (CONTEXTO) -->
+            <div id="view-onboarding" class="hidden p-12 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-white mb-6">Bem-vindo à TechNova Soluções Digitais</h2>
+                <div class="space-y-4 text-slate-300 leading-relaxed mb-8">
+                    <p>Você acaba de assumir como <strong class="text-cyan-400">Gerente de Projetos Senior</strong>.</p>
+                    <p>Sua missão é liderar o desenvolvimento do <strong class="text-white">Aplicativo Phoenix</strong>: uma plataforma disruptiva de logística urbana que utiliza inteligência de dados para otimizar rotas de entrega.</p>
+                    <p>A diretoria da TechNova quer lançar o produto em tempo recorde para garantir uma fatia do mercado. Você terá que gerenciar as expectativas dos diretores (stakeholders), a saúde técnica do código e o moral da sua equipe de especialistas.</p>
+                    <p class="bg-slate-800/50 p-4 rounded-lg border-l-4 border-cyan-500 text-sm">
+                        <strong>Dica:</strong> No PMBOK 7, seu foco deve ser a <strong>Entrega de Valor</strong>. Às vezes, seguir o plano original não é a melhor forma de gerar valor para o cliente.
+                    </p>
+                </div>
+                <div class="flex justify-center">
+                    <button onclick="Game.startProject()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-12 rounded-xl transition-all">
+                        Assumir o Projeto
+                    </button>
+                </div>
+            </div>
+
+            <!-- TELA 3: EVENTO -->
+            <div id="view-event" class="hidden">
+                <div class="p-8 border-b border-slate-700">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span id="event-week" class="bg-slate-700 text-cyan-400 px-3 py-1 rounded-lg text-sm font-bold tracking-widest">SEMANA 01</span>
+                        <div class="committee-alert bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 rounded-lg text-xs font-bold text-cyan-400 flex items-center gap-2">
+                            <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span></span>
+                            PAUSA PARA COMITÊ: DISCUTAM AS OPÇÕES
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <img id="npc-avatar" src="" class="w-20 h-20 rounded-2xl border-2 border-slate-700 object-cover" alt="Avatar">
+                        <div>
+                            <h2 id="event-title" class="text-2xl font-bold mb-2 text-white">Título do Evento</h2>
+                            <p id="event-desc" class="text-slate-400 leading-relaxed italic">Descrição do desafio.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-8 bg-slate-900/50">
+                    <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Gerado via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TELA 4: FEEDBACK -->
+            <div id="view-feedback" class="hidden p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-2">Consequências</h2>
+                    <p id="feedback-desc" class="text-slate-400">Resumo do resultado.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6">
+                        <h3 class="text-emerald-400 font-bold uppercase text-xs tracking-widest mb-4">Impactos Positivos</h3>
+                        <ul id="list-gains" class="space-y-2"></ul>
+                    </div>
+                    <div class="bg-red-500/5 border border-red-500/20 rounded-2xl p-6">
+                        <h3 class="text-red-400 font-bold uppercase text-xs tracking-widest mb-4">Impactos Negativos</h3>
+                        <ul id="list-losses" class="space-y-2"></ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-6 mb-8">
+                    <div class="flex gap-4">
+                        <div class="bg-blue-500/20 p-2 h-fit rounded-lg"><svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg></div>
+                        <div>
+                            <h4 class="text-blue-400 font-bold text-sm uppercase mb-1">Nota Pedagógica PMBOK 7</h4>
+                            <p id="pmbok-tip" class="text-slate-300 text-sm italic"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button onclick="Game.nextEvent()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-12 rounded-xl">Continuar</button>
+                </div>
+            </div>
+
+            <!-- TELA 5: FINAL -->
+            <div id="view-end" class="hidden p-12 text-center">
+                <h2 id="end-title" class="text-4xl font-bold mb-4">Fim de Projeto</h2>
+                <p id="end-desc" class="text-slate-400 mb-8 text-lg"></p>
+                <div id="final-stats" class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8"></div>
+                <button onclick="location.reload()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 px-10 rounded-xl">Recomeçar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const Game = {
+            state: {
+                budget: 100,
+                schedule: 100,
+                quality: 80,
+                morale: 80,
+                currentWeek: 1,
+                eventIndex: 0
+            },
+
+            db: [
+                {
+                    id: 1, week: 1, char: "david",
+                    title: "Mudança de Escopo",
+                    desc: "David, o Diretor Comercial, quer incluir recursos de IA agora. 'O mercado não vai esperar!', afirma ele.",
+                    options: [
+                        { id: 'A', type: "Agressiva", text: "Aceitar Imediatamente", expl: "Instruir a equipe a começar o desenvolvimento agora, ignorando o plano original.", impact: { budget: -15, schedule: -15, quality: -5, morale: 5 }, feedback: "A diretoria está feliz, mas a pressão sobre a equipe começou cedo e o custo subiu." },
+                        { id: 'B', type: "Conservadora", text: "Negar e Seguir o Plano", expl: "Manter o escopo fechado e focar apenas no que foi acordado no início do projeto.", impact: { budget: 0, schedule: 0, quality: 5, morale: -5 }, feedback: "O cronograma está seguro, mas o diretor se sente desapontado com a falta de agilidade." },
+                        { id: 'C', type: "Negligente", text: "Adiar a Decisão", expl: "Não dar uma resposta clara, esperando que o assunto seja esquecido nas próximas semanas.", impact: { budget: 0, schedule: -5, quality: -10, morale: -10 }, feedback: "A indecisão gerou fofocas e falta de rumo para os desenvolvedores." },
+                        { id: 'D', type: "Equilibrada", text: "Criar um Protótipo (POC)", expl: "Desenvolver uma Prova de Conceito (POC) simplificada para validar a ideia sem comprometer todo o projeto.", impact: { budget: -5, schedule: -5, quality: 0, morale: 5 }, feedback: "Você validou os riscos da IA e acalmou o diretor com uma entrega parcial de valor." }
+                    ],
+                    pmbokTip: "O Engajamento dos Stakeholders requer equilibrar desejos competitivos com a realidade dos recursos."
+                },
+                {
+                    id: 2, week: 3, char: "leona",
+                    title: "Dívida Técnica",
+                    desc: "Leona, a Líder Técnica, avisa: 'O código está virando uma bagunça. Precisamos parar para organizar a casa (Refatorar).'",
+                    options: [
+                        { id: 'A', type: "Agressiva", text: "Ignorar e Continuar", expl: "Manter o ritmo de novas funcionalidades, deixando a limpeza do código para o futuro.", impact: { budget: 0, schedule: 5, quality: -20, morale: -15 }, feedback: "As entregas continuam, mas a equipe está frustrada e o sistema ficou muito instável." },
+                        { id: 'B', type: "Conservadora", text: "Refatoração Completa", expl: "Parar todo o desenvolvimento por uma semana para reorganizar o código interno (Refatorar).", impact: { budget: -10, schedule: -15, quality: 20, morale: 10 }, feedback: "O sistema agora é robusto e escalável, mas o atraso no cronograma é preocupante." },
+                        { id: 'C', type: "Negligente", text: "Exigir Horas Extras", expl: "Pedir que a equipe organize o código no tempo livre para não atrasar as entregas.", impact: { budget: -15, schedule: 0, quality: -5, morale: -30 }, feedback: "A equipe está sofrendo de exaustão (Burnout). A qualidade não melhorou e o clima está péssimo." },
+                        { id: 'D', type: "Equilibrada", text: "Refatoração por Partes", expl: "Dedicar 20% do tempo de cada dia para melhorias contínuas no código enquanto entrega as tarefas.", impact: { budget: -5, schedule: -5, quality: 10, morale: 5 }, feedback: "Melhoria gradual sem impacto catastrófico no prazo. A equipe sente que o trabalho é sustentável." }
+                    ],
+                    pmbokTip: "O Domínio da Entrega destaca que a qualidade robusta reduz o custo total de propriedade a longo prazo."
+                },
+                {
+                    id: 3, week: 5, char: "bia",
+                    title: "Erro Crítico Encontrado",
+                    desc: "Bia (QA) detectou uma falha de segurança. Dados de teste estão aparecendo para usuários externos.",
+                    options: [
+                        { id: 'A', type: "Agressiva", text: "Correção Rápida (Hotfix)", expl: "Aplicar uma correção emergencial (Hotfix) direto no sistema sem passar por todos os testes.", impact: { budget: 0, schedule: 0, quality: -15, morale: -5 }, feedback: "A falha parou, mas a correção apressada quebrou outras partes do sistema." },
+                        { id: 'B', type: "Conservadora", text: "Retornar Versão (Rollback)", expl: "Retornar o sistema para a versão anterior estável (Rollback) e auditar o erro com calma.", impact: { budget: -5, schedule: -15, quality: 15, morale: 0 }, feedback: "Decisão segura que protegeu os dados, mas o cronograma sofreu um grande golpe." },
+                        { id: 'C', type: "Negligente", text: "Minimizar o Impacto", expl: "Dizer que o erro é pequeno e não requer ação imediata.", impact: { budget: -10, schedule: -5, quality: -20, morale: -15 }, feedback: "A falha vazou para o mercado e a reputação da empresa foi atingida severamente." },
+                        { id: 'D', type: "Equilibrada", text: "Força-Tarefa de Correção", expl: "Reunir os melhores especialistas para focar apenas nisso até que seja resolvido com testes rigorosos.", impact: { budget: -10, schedule: -10, quality: 10, morale: 5 }, feedback: "Problema resolvido com segurança. A equipe se sentiu unida diante da crise." }
+                    ],
+                    pmbokTip: "A gestão de Riscos e Incerteza exige respostas rápidas porém fundamentadas em integridade."
+                }
+            ],
+
+            goToOnboarding: function() { this.showView('onboarding'); },
+            startProject: function() { this.updateUI(); this.showView('event'); this.renderEvent(); },
+
+            updateUI: function() {
+                const s = this.state;
+                document.getElementById('val-budget').textContent = s.budget + '%';
+                document.getElementById('val-schedule').textContent = s.schedule + '%';
+                document.getElementById('val-quality').textContent = s.quality + '%';
+                document.getElementById('val-morale').textContent = s.morale + '%';
+                document.getElementById('bar-budget').style.width = s.budget + '%';
+                document.getElementById('bar-schedule').style.width = s.schedule + '%';
+                document.getElementById('bar-quality').style.width = s.quality + '%';
+                document.getElementById('bar-morale').style.width = s.morale + '%';
+            },
+
+            showView: function(id) {
+                ['view-start', 'view-onboarding', 'view-event', 'view-feedback', 'view-end'].forEach(v => document.getElementById(v).classList.add('hidden'));
+                document.getElementById('view-' + id).classList.remove('hidden');
+            },
+
+            renderEvent: function() {
+                const ev = this.db[this.state.eventIndex];
+                if(!ev) { this.endGame('success'); return; }
+                document.getElementById('event-week').textContent = "SEMANA " + ev.week.toString().padStart(2, '0');
+                document.getElementById('event-title').textContent = ev.title;
+                document.getElementById('event-desc').textContent = ev.desc;
+                document.getElementById('npc-avatar').src = `https://i.pravatar.cc/150?u=${ev.char}`;
+                const grid = document.getElementById('options-grid');
+                grid.innerHTML = '';
+                ev.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = "glass-panel p-5 rounded-xl text-left choice-card border-l-4 border-slate-600 flex flex-col gap-1";
+                    if(opt.id === 'A') btn.classList.add('border-l-red-500');
+                    if(opt.id === 'B') btn.classList.add('border-l-emerald-500');
+                    if(opt.id === 'C') btn.classList.add('border-l-amber-500');
+                    if(opt.id === 'D') btn.classList.add('border-l-cyan-500');
+                    btn.innerHTML = `
+                        <div class="flex justify-between items-center"><span class="text-[10px] font-bold uppercase text-slate-500">${opt.type}</span><span class="bg-slate-800 text-xs px-2 py-0.5 rounded text-slate-400 font-bold">${opt.id}</span></div>
+                        <p class="font-bold text-white text-sm">${opt.text}</p>
+                        <p class="text-xs text-slate-400 leading-tight">${opt.expl}</p>
+                    `;
+                    btn.onclick = () => this.handleChoice(opt, ev);
+                    grid.appendChild(btn);
+                });
+            },
+
+            handleChoice: function(opt, ev) {
+                this.state.budget += opt.impact.budget;
+                this.state.schedule += opt.impact.schedule;
+                this.state.quality += opt.impact.quality;
+                this.state.morale += opt.impact.morale;
+                ['budget', 'schedule', 'quality', 'morale'].forEach(k => this.state[k] = Math.max(0, Math.min(100, this.state[k])));
+                this.updateUI();
+                this.showFeedback(opt, ev);
+            },
+
+            showFeedback: function(opt, ev) {
+                document.getElementById('feedback-desc').textContent = opt.feedback;
+                document.getElementById('pmbok-tip').textContent = ev.pmbokTip;
+                const gl = document.getElementById('list-gains'), ll = document.getElementById('list-losses');
+                gl.innerHTML = ''; ll.innerHTML = '';
+                const lbls = { budget: "Orçamento", schedule: "Cronograma", quality: "Qualidade", morale: "Moral" };
+                Object.entries(opt.impact).forEach(([k, v]) => {
+                    if(v === 0) return;
+                    const li = document.createElement('li');
+                    li.className = "text-sm flex justify-between";
+                    li.innerHTML = `<span>${lbls[k]}</span> <span class="font-bold ${v > 0 ? 'text-emerald-400' : 'text-red-400'}">${v > 0 ? '+' : ''}${v}%</span>`;
+                    if(v > 0) gl.appendChild(li); else ll.appendChild(li);
+                });
+                if(gl.innerHTML === '') gl.innerHTML = '<li class="text-xs text-slate-500 italic">Sem ganhos imediatos.</li>';
+                if(ll.innerHTML === '') ll.innerHTML = '<li class="text-xs text-slate-500 italic">Sem perdas imediatas.</li>';
+                this.showView('feedback');
+            },
+
+            nextEvent: function() {
+                if(this.state.budget <= 0 || this.state.schedule <= 0) { this.endGame('failure'); return; }
+                this.state.eventIndex++;
+                if(this.state.eventIndex >= this.db.length) this.endGame('success');
+                else { this.renderEvent(); this.showView('event'); }
+            },
+
+            endGame: function(status) {
+                const s = this.state, t = document.getElementById('end-title'), d = document.getElementById('end-desc'), st = document.getElementById('final-stats');
+                if(status === 'failure') {
+                    t.textContent = "Projeto Cancelado"; t.className = "text-4xl font-bold mb-4 text-red-500";
+                    d.textContent = "Os recursos foram esgotados antes da entrega de valor.";
+                } else {
+                    t.textContent = "Sucesso no Lançamento!"; t.className = "text-4xl font-bold mb-4 text-emerald-500";
+                    d.textContent = "O Aplicativo Phoenix chegou ao mercado! Sua gestão garantiu a viabilidade do produto.";
+                }
+                st.innerHTML = `<div class="glass-panel p-4 rounded-xl text-center"><span class="text-xs text-slate-500 uppercase">Qualidade Final</span><span class="text-2xl font-bold text-cyan-400">${s.quality}%</span></div><div class="glass-panel p-4 rounded-xl text-center"><span class="text-xs text-slate-500 uppercase">Moral Equipe</span><span class="text-2xl font-bold text-purple-400">${s.morale}%</span></div>`;
+                this.showView('end');
+            }
+        };
+        window.Game = Game;
+    </script>
+</body>
+</html>
